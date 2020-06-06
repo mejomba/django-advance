@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
 
 def home(request):
-	return HttpResponse('hello from view')
+	context = {
+			'title': 'my title',
+			'body': 'my body',
+	}
+	return render(request, 'blog/home.html', context)
 
-def api(request):
-	data = {"message": 'hello'}
-	return JsonResponse(data, status=200)
