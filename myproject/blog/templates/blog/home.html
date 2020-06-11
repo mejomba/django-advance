@@ -38,15 +38,20 @@
           <div class="post-preview">
           <a href="post.html">
             <h2 class="post-title">
-              {{article.title}}
+              <a href="{% url 'blog:detail' article.slug %}">{{article.title}}</a>
             </h2>
             <h3 class="post-subtitle">
-              {{article.description|truncatechars:130}}
+              <a href="{% url 'blog:detail' article.slug %}">{{article.description|truncatechars:130}}</a>
             </h3>
           </a>
           <p class="post-meta">نوشته شده توسط
             <a href="#">مجتبی</a>
             {{article.jpublish}}</p>
+        </div>
+        <div>
+          {% for cat in article.category.all %}
+            <a href="#">#{{cat.title}}</a>
+          {% endfor %}
         </div>
         <hr>
         {% endfor %}

@@ -1,10 +1,11 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse
-from .models import Article
+from .models import Article, Category
 
 def home(request):
 	context = {
-			'articles': get_list_or_404(Article, status='P')
+			'articles': get_list_or_404(Article, status='P'),
+			'categores': get_list_or_404(Category, status=False)
 	}
 	return render(request, 'blog/home.html', context)
 
