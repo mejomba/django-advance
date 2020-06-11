@@ -8,6 +8,7 @@ body {
   font-size: 20px;
   color: #212529;
   font-family: 'Lora', 'Times New Roman', serif;
+  text-align: justify;
 }
 
 p {
@@ -285,6 +286,7 @@ header.masthead .post-heading .meta a {
 .post-preview > a > .post-subtitle {
   font-weight: 300;
   margin: 0 0 10px;
+  text-align: justify;
 }
 
 .post-preview > .post-meta {
