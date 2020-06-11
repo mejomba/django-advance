@@ -37,27 +37,28 @@
           {% for article in articles %}
           <div class="post-preview">
           <a href="post.html">
-            <h2 class="post-title">
+            <h3 class="post-title">
               <a href="{% url 'blog:detail' article.slug %}">{{article.title}}</a>
-            </h2>
-            <h3 class="post-subtitle">
-              <a href="{% url 'blog:detail' article.slug %}">{{article.description|truncatechars:130}}</a>
             </h3>
+            <h5 class="post-subtitle">
+              <a href="{% url 'blog:detail' article.slug %}">{{article.description|truncatechars:130}}</a>
+            </h5>
           </a>
-          <p class="post-meta">نوشته شده توسط
-            <a href="#">مجتبی</a>
-            {{article.jpublish}}</p>
-        </div>
-        <div>
+
           {% for cat in article.category.all %}
             <a href="#">#{{cat.title}}</a>
           {% endfor %}
+
+          <br>
+          <p class="post-meta">نوشته شده توسط
+            <a href="#">مجتبی</a>
+            {{article.jpublish}}</p>
         </div>
         <hr>
         {% endfor %}
         <!-- Pager -->
         <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
+          <a class="btn btn-primary float-left" href="#">Older Posts &larr;</a>
         </div>
       </div>
     </div>

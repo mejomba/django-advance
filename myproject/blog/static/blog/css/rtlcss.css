@@ -1,3 +1,13 @@
 body {
 	direction: rtl;
+	text-align: right;
+}
+
+.navbar-nav.ml-auto {
+    margin-left: initial !important;
+    margin-right: auto;
+}
+
+.post-meta {
+    float: left;
 }

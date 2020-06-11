@@ -9,6 +9,7 @@ body {
   color: #212529;
   font-family: 'Lora', 'Times New Roman', serif;
   text-align: justify;
+  direction: rtl !important;
 }
 
 p {
