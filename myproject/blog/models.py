@@ -37,7 +37,7 @@ class Article(models.Model):
 	created		= models.DateTimeField(auto_now_add=True, verbose_name='ایجاد شده')
 	updated 	= models.DateTimeField(auto_now=True, verbose_name='آخرین بروز زسانی')
 	status 		= models.CharField(choices=STATUS_CHOICES, max_length=1, verbose_name='وضعیت')
-	category 	= models.ManyToManyField('Category', verbose_name='دسته بندی')
+	category 	= models.ManyToManyField('Category', verbose_name='دسته بندی', related_name='related_name')
 	class Meta:
 		verbose_name = 'مقاله'
 		verbose_name_plural = 'مقاله'
@@ -53,3 +53,6 @@ class Article(models.Model):
 	def jupdated(self):
 		return to_jalali(self.updated)
 	jupdated.short_description = 'آخرین به روز رسانی'
+
+	def cat_publish(self):
+		return self.category.filter(status=False)

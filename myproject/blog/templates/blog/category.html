@@ -34,7 +34,7 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
-          {% for article in articles %}
+          {% for article in category.related_name.all %}
           <div class="post-preview">
           <a href="post.html">
             <h3 class="post-title">
@@ -49,6 +49,7 @@
             <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
           {% endfor %}
 <!-- end models method cat_publish()-->
+
           <br>
           <p class="post-meta">نوشته شده توسط
             <a href="#">مجتبی</a>
