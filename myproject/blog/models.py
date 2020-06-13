@@ -2,8 +2,18 @@ from django.db import models
 from django.utils import timezone
 from extension.utils import to_jalali
 
+class ArticleManager(models.Manager):
+	def published(self):
+		return self.filter(status='P')
+
+
+class CategoryManager(models.Manager):
+	def active(self):
+		return self.filter(status=False)
+
 
 class Category(models.Model):
+	parent 		= models.ForeignKey('self', default=None, null=True, blank=True, on_delete=models.SET_NULL ,related_name='parent_related_name', verbose_name='دسته مادر')
 	title 		= models.CharField(max_length=200, verbose_name='عنوان دسته')
 	slug		= models.SlugField(max_length=100, unique=True, verbose_name='نام اختصاصی')
 	updated 	= models.DateTimeField(auto_now=True, verbose_name='آخرین بروز زسانی')
@@ -14,7 +24,7 @@ class Category(models.Model):
 	class Meta:
 		verbose_name = 'دسته بندی'
 		verbose_name_plural = 'دسته بندی ها'
-		ordering = ['position']
+		ordering = ['parent__id', 'position']
 
 	def __str__(self):
 		return self.title
@@ -22,6 +32,8 @@ class Category(models.Model):
 	def jupdated(self):
 		return to_jalali(self.updated)
 	jupdated.short_description = 'آخرین به روز رسانی'
+
+	objects = CategoryManager()
 
 
 class Article(models.Model):
@@ -37,7 +49,7 @@ class Article(models.Model):
 	created		= models.DateTimeField(auto_now_add=True, verbose_name='ایجاد شده')
 	updated 	= models.DateTimeField(auto_now=True, verbose_name='آخرین بروز زسانی')
 	status 		= models.CharField(choices=STATUS_CHOICES, max_length=1, verbose_name='وضعیت')
-	category 	= models.ManyToManyField('Category', verbose_name='دسته بندی', related_name='related_name')
+	category 	= models.ManyToManyField('Category', verbose_name='دسته بندی', related_name='related_name', null=True, blank=True)
 	class Meta:
 		verbose_name = 'مقاله'
 		verbose_name_plural = 'مقاله'
@@ -56,3 +68,5 @@ class Article(models.Model):
 
 	def cat_publish(self):
 		return self.category.filter(status=False)
+
+	objects = ArticleManager()

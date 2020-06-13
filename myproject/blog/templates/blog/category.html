@@ -34,7 +34,8 @@
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
         <div class="post-preview">
-          {% for article in category.related_name.all %}
+          
+          {% for article in articles %}
           <div class="post-preview">
           <a href="post.html">
             <h3 class="post-title">
@@ -58,8 +59,13 @@
         <hr>
         {% endfor %}
         <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-left" href="#">Older Posts &larr;</a>
+       <div class="clearfix">
+          {% if articles.has_previous %}
+          <a class="btn btn-primary float-left" href="{% url 'blog:home' articles.previous_page_number %}">پست های قدیمی &larr;</a>
+          {% endif %}
+          {% if articles.has_next %}
+          <a class="btn btn-primary float-left ml-2" href="{% url 'blog:home' articles.next_page_number %}">&rarr; پست های جدید</a>
+          {% endif %}
         </div>
       </div>
     </div>
