@@ -32,7 +32,7 @@ def to_jalali(time):
 	for i, j in enumerate(j_month):
 		if jtime_list[1] == i + 1:
 			jtime_list[1] = j_month[i]
-	output =  '{} {} {} ساعت {}:{}'.format(jtime_list[2], jtime_list[1], jtime_list[0], time.hour, time.minute)
+	output =  '{} {} {} ساعت {}:{}'.format(jtime_list[2], jtime_list[1], jtime_list[0], time.strftime('%H'), time.strftime('%M'))
 	
 	# convert number to persian
 	output = to_persian_number(output)
