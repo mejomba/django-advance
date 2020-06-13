@@ -1,3 +1,4 @@
+
 from django.views.generic import ListView, DetailView
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
@@ -18,13 +19,15 @@ class ListArticle(ListView):
 	# template_name = 'blog/home.html'
 	# context_object_name = "articles"
 	queryset = Article.objects.published()
-	paginate_by = 4
-
+	paginate_by = 3
 # def detail(request, slug):
 # 	context = {
 # 			'article': get_object_or_404(Article.objects.published(), slug=slug)
 # 	}
 # 	return render(request, 'blog/detail.html', context)
+
+	
+
 
 
 class DetailArticle(DetailView):
