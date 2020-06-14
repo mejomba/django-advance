@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.utils.html import format_html
 from extension.utils import to_jalali
 
 class ArticleManager(models.Manager):
@@ -69,4 +70,7 @@ class Article(models.Model):
 	def cat_publish(self):
 		return self.category.filter(status=False)
 
+	def thumbnail_display(self):
+		return format_html('<img width=128 src={}>'.format(self.thumbnail.url))
+	thumbnail_display.short_description = 'تصویر'
 	objects = ArticleManager()
