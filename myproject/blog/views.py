@@ -4,6 +4,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from django.http import HttpResponse, JsonResponse
 from .models import Article, Category
+from accounts.models import User
 
 # def home(request, page=1):
 # 	article_list = Article.objects.published()
@@ -61,4 +62,22 @@ class CategoryList(ListView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
 		context['category'] = category
+		return context
+
+
+class AuthorList(ListView):
+
+	paginate_by = 3
+	template_name = 'blog/author_list.html'
+
+	def get_queryset(self):
+		global author
+		username = self.kwargs.get('username')
+		print(username)
+		author = get_object_or_404(User, username=username)
+		return author.related_name.published()
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['author'] = author
 		return context

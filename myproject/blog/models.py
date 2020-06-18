@@ -1,4 +1,5 @@
 from django.db import models
+from accounts.models import User
 from django.utils import timezone
 from django.utils.html import format_html
 from extension.utils import to_jalali
@@ -42,6 +43,7 @@ class Article(models.Model):
 			('D', 'پیش نویس'),
 			('P', 'منتشر شده'),
 		)
+	author 		= models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name='نویسنده', related_name='related_name')
 	title 		= models.CharField(max_length=200, verbose_name='عنوان')
 	slug		= models.SlugField(max_length=100, unique=True, verbose_name='نام اختصاصی')
 	description = models.TextField(verbose_name='توضیحات')

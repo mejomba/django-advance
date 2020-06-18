@@ -1,19 +1,20 @@
 {% extends 'blog/list.html' %}
 
 {% block title %}
-{{category.title}}
+mytitle
 {% endblock title %}
 
 {% block page_title %}
 <div class="alert alert-primary text-center" role="alert">
-  دسته بندی: {{category.title}}
+  نویسنده: {{author.get_full_name}}
 </div>
 {% endblock page_title %}
 
 {% block next_pager %}
-   {% url 'blog:category' category.slug page_obj.previous_page_number %}
+	{% url 'blog:author' author.username page_obj.previous_page_number %}
 {% endblock next_pager %}
 
 {% block previous_pager %}
-   {% url 'blog:category' category.slug page_obj.next_page_number %}
+    {% url 'blog:author' author.username page_obj.next_page_number %}
 {% endblock previous_pager %}
+

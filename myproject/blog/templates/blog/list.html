@@ -33,6 +33,8 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
+            {% block page_title %}
+            {% endblock page_title %}
         <div class="post-preview">
           {% for article in object_list %}
           <div class="post-preview">
@@ -51,21 +53,22 @@
 <!-- end models manager active-->
           <br>
           <p class="post-meta">نوشته شده توسط
-            <a href="#">مجتبی</a>
+            <a href="{% url 'blog:author' article.author %}">{{article.author.get_full_name}}</a>
             {{article.jpublish}}</p>
         </div>
         <hr>
         {% endfor %}
         <!-- Pager -->
         <div class="clearfix">
-{% block pager %}
+
           {% if page_obj.has_previous %}
-          <a class="btn btn-primary float-left" href="{% url 'blog:home' page_obj.previous_page_number %}">پست های قدیمی &larr;</a>
+          <a class="btn btn-primary float-left" href="{% block next_pager %}{% endblock next_pager %}">پست های قدیمی &larr;</a>
           {% endif %}
+
           {% if page_obj.has_next %}
-          <a class="btn btn-primary float-left ml-2" href="{% url 'blog:home' page_obj.next_page_number %}">&rarr; پست های جدید</a>
+          <a class="btn btn-primary float-left ml-2" href="{% block previous_pager %}{% endblock previous_pager %}">&rarr; پست های جدید</a>
           {% endif %}
-{% endblock pager %}
+
         </div>
       </div>
     </div>
