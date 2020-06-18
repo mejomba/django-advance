@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.views.generic import ListView
-from django.contrib.mixin import loginrequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin
+from blog.models import Article
 
-class AccountView(ListView):
+class AccountView(LoginRequiredMixin, ListView):
 	queryset = Article.objects.all()
-	template_name = 'accounts/home.html'
+	template_name = 'registration/home.html'
