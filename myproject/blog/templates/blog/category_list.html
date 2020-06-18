@@ -46,7 +46,7 @@
             </h5>
           </a>
 <!-- use models method cat_publish() -->
-          {% for cat in article.cat_publish %}
+          {% for cat in article.category.active %}
             <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
           {% endfor %}
 <!-- end models method cat_publish()-->

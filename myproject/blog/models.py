@@ -67,8 +67,8 @@ class Article(models.Model):
 		return to_jalali(self.updated)
 	jupdated.short_description = 'آخرین به روز رسانی'
 
-	def cat_publish(self):
-		return self.category.filter(status=False)
+	# def cat_publish(self):
+	# 	return self.category.filter(status=False)
 
 	def thumbnail_display(self):
 		return format_html('<img width=128 src={}>'.format(self.thumbnail.url))

@@ -44,11 +44,11 @@
               <a href="{% url 'blog:detail' article.slug %}">{{article.description|truncatechars:130}}</a>
             </h5>
           </a>
-<!-- use models method cat_publish() -->
-          {% for cat in article.cat_publish %}
+<!-- use models manager active -->
+          {% for cat in article.category.active %}
             <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
           {% endfor %}
-<!-- end models method cat_publish()-->
+<!-- end models manager active-->
           <br>
           <p class="post-meta">نوشته شده توسط
             <a href="#">مجتبی</a>
