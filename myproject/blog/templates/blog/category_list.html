@@ -1,73 +1,14 @@
-{% extends 'blog/base.html' %}
-{% load static %}
+{% extends 'blog/list.html' %}
 
-{% block custom-css %}
-<link rel="stylesheet" type="text/css" href="red.css">
-{% endblock custom-css %}
+{% block title %}
+{{category.title}}
+{% endblock title %}
 
-
-
-
-{% block title %}Home{% endblock title %}
-
-
-{% block header %}
-  <!-- Page Header -->
-  <header class="masthead" style="background-image: url('{% static 'blog/img/home-bg.jpg' %}')">
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="site-heading">
-            <h1>pyproject</h1>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-{% endblock header %}
-
-
-{% block main %}
-  <!-- Main Content -->
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <div class="post-preview">
-          
-          {% for article in object_list %}
-          <div class="post-preview">
-          <a href="post.html">
-            <h3 class="post-title">
-              <a href="{% url 'blog:detail' article.slug %}">{{article.title}}</a>
-            </h3>
-            <h5 class="post-subtitle">
-              <a href="{% url 'blog:detail' article.slug %}">{{article.description|truncatechars:130}}</a>
-            </h5>
-          </a>
-<!-- use models method cat_publish() -->
-          {% for cat in article.category.active %}
-            <a href="{% url 'blog:category' cat.slug %}">#{{cat.title}}</a>
-          {% endfor %}
-<!-- end models method cat_publish()-->
-
-          <br>
-          <p class="post-meta">نوشته شده توسط
-            <a href="#">مجتبی</a>
-            {{article.jpublish}}</p>
-        </div>
-        <hr>
-        {% endfor %}
-        <!-- Pager -->
-       <div class="clearfix">
+{% block pager %}
           {% if page_obj.has_previous %}
           <a class="btn btn-primary float-left" href="{% url 'blog:category' category.slug page_obj.previous_page_number %}">پست های قدیمی &larr;</a>
           {% endif %}
           {% if page_obj.has_next %}
           <a class="btn btn-primary float-left ml-2" href="{% url 'blog:category' category.slug page_obj.next_page_number %}">&rarr; پست های جدید</a>
           {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
-{% endblock main %}
+{% endblock pager %}
