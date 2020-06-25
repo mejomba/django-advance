@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}
+
 <!DOCTYPE html>
 <html>
 
@@ -25,7 +27,17 @@
 <body>
 	<!-- /login-section -->
 
+
 	<section class="w3l-forms-23">
+
+		{% if form.non_field_errors %}
+		<div class="error bg-warning">
+			{% for error in form.non_field_errors %}
+				{{ error }}
+			{% endfor %}
+		</div>
+		{% endif %}
+
 		<div class="forms23-block-hny">
 			<div class="wrapper">
 				<h1>Pyproject</h1>
@@ -47,11 +59,28 @@
 								{% csrf_token %}
 								
 								<!-- <input type="text" name="email" class="input-form" placeholder="نام کاربری"
-										required="required" /> -->
-										{{form.username}}
+										required="required" /> -->		
+															
+										{% if form.username.errors %}
+										<div class="field-error">
+											{% for error in form.username.errors %}
+												{{ error }}
+											{% endfor %}
+										</div>
+										{% endif %}
+										{% render_field form.username class="input-form" placeholder="نام کاربری" %}
+										
 								<!-- <input type="password" name="password" class="input-form"
 										placeholder="گذرواژه" required="required" /> -->
-										{{form.password}}
+										
+										{% if form.password.errors %}
+										<div class="field-error">
+											{% for error in form.password.errors %}
+												{{ error }}
+											{% endfor %}
+										</div>
+										{% endif %}
+										{% render_field form.password class="input-form" placehokder="کذرواٰژه" %}
 								<button type="submit" class="loginhny-btn btn">ورود</button>
 							</form>
 							<p>حساب کاربری ندارید؟ <a href="#">یکی ایجاد کنید</a></p>

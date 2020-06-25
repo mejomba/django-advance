@@ -379,3 +379,21 @@ button:hover {
     padding: 35px 20px;
   }
 }
+
+.error {
+  color: red;
+  padding: 15px;
+  background-color: #fee;
+  border: 1px solid red;
+  border-radius: 5px;
+  text-align: center;
+  font-size: 1.1rem;
+  margin: auto;
+  width: 80%;
+}
+
+.field-error {
+  float: right;
+  color: red;
+  /*background-color: #fee;*/
+}
