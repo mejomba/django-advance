@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # plugin
     'widget_tweaks',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,5 @@ MEDIA_URL = '/media/'
 MADIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = 'accounts.User'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

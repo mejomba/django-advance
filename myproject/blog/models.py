@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from accounts.models import User
 from django.utils import timezone
 from django.utils.html import format_html
@@ -61,6 +62,9 @@ class Article(models.Model):
 	def __str__(self):
 		return self.title
 
+	def get_absolute_url(self):
+		return reverse("accounts:account")
+
 	def jpublish(self):
 		return to_jalali(self.publish)
 	jpublish.short_description = 'تاریخ انتشار'
@@ -75,4 +79,13 @@ class Article(models.Model):
 	def thumbnail_display(self):
 		return format_html('<img width=128 src={}>'.format(self.thumbnail.url))
 	thumbnail_display.short_description = 'تصویر'
+
+	# def category_str(self):
+	# 	return '، '.join([category.title for category in self.category.all() if not category.status])
+	# category_str.short_description = 'دسته بندی ها'
+
+	def category_str(self):
+		return '، '.join([category.title for category in self.category.active()])
+	category_str.short_description = 'دسته بندی ها'
+
 	objects = ArticleManager()

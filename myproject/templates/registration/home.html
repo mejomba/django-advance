@@ -1,2 +1,61 @@
-home
-{{user.get_full_name}}
+{% extends 'registration/base.html' %}
+
+{% block page-title %}
+{% block title %} لیست مقالات {% endblock %}
+{% endblock %}
+
+{% block main %}
+<div class="row">
+          <div class="col-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">لیست مقالات</h3>
+
+                <div class="card-tools">
+                  <div class="input-group input-group-sm" style="width: 150px;">
+                    <input type="text" name="table_search" class="form-control float-right" placeholder="جستجو">
+
+                    <div class="input-group-append">
+                      <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0">
+                <table class="table table-hover">
+                  <tbody><tr>
+                    <th>عنوان</th>
+                    <th>دسته بندی</th>
+                    <th>نویسنده</th>
+                    <th>خلاصه</th>
+                    <th>تاریخ انتشار</th>
+                    <th>تصویر</th>
+                    <th>وضعیت</th>
+                  </tr>
+                  {% for article in object_list %}
+                  	<tr>
+	                    <td>{{article.title}}</td>
+	                    <td>{{article.category_str}}</td>
+	                    <td>{{article.author.get_full_name}}</td>
+	                    <td>{{article.description|striptags|truncatewords:"30"}}</td>
+	                    <td>{{article.jpublish}}</td>
+	                    <td><img src="{{article.thumbnail.url}}" style="width: 120px"></td>
+	                    {% if article.status == 'P' %}
+	                    <td>
+	                    	<span class="badge badge-success">منتشر شده</span>
+	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش در سایت</span>
+	                    </td>
+	                    {% else %}
+	                    <td><span class="badge badge-warning">پیش نویس</span></td>
+	                    {% endif %}
+                  </tr>
+                  {% endfor %}
+                </tbody></table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
+{% endblock %}

@@ -43,7 +43,7 @@
               <a href="{% url 'blog:detail' article.slug %}">{{article.title}}</a>
             </h3>
             <h5 class="post-subtitle">
-              <a href="{% url 'blog:detail' article.slug %}">{{article.description|truncatechars:130}}</a>
+              <a href="{% url 'blog:detail' article.slug %}">{{article.description|striptags|truncatechars:130  }}</a>
             </h5>
           </a>
 <!-- use models manager active -->
