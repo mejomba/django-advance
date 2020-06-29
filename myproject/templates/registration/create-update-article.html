@@ -3,16 +3,8 @@
 
 {% block title %} لیست مقالات {% endblock %}
 
+
 {% block main %}
-<form method="post" enctype="multipart/form-data">
-		{% csrf_token %}
-		{{form | crispy }}
-
-		<button class="btn btn-success">ارسال مقاله</button>
-</form>
-
-
-<!-- 
 <div class="row">
     <div class="col-md-12">
          <div class="card card-primary">
@@ -23,14 +15,17 @@
 		{% csrf_token %}
 		<div class="row">
 			<div class="col-md-6">
-				{{form.author | as_crispy_field}}
+				{{form.title | as_crispy_field}}
 				{{form.slug | as_crispy_field}}
 			</div>
 			<div class="col-md-6">{{form.category | as_crispy_field}}</div>
 			<div class="col-md-12">{{form.description | as_crispy_field }}</div>
 			<div class="col-md-3">{{form.publish | as_crispy_field}}</div>
 			<div class="col-md-3">{{form.thumbnail | as_crispy_field}}</div>
+			{% if user.is_superuser %}
 			<div class="col-md-3">{{form.status | as_crispy_field}}</div>
+			<div class="col-md-3">{{form.author | as_crispy_field}}</div>
+			{% endif %}
 			<button class="btn btn-success">ارسال مقاله</button>
 
 		</div>
@@ -38,5 +33,6 @@
 		</form>
 	</div>
 </div>
- -->
 {% endblock %}
+
+

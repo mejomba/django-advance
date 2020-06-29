@@ -35,7 +35,13 @@
                   </tr>
                   {% for article in object_list %}
                   	<tr>
-	                    <td>{{article.title}}</td>
+	                    <td>
+                        {% if user.is_superuser or article.status == 'D' %}
+                          <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a> 
+                        {% else %}
+                          {{article.title}}<br> <small>مقاله منتشر شده قابل ویرایش نیست</small>
+                        {% endif %}
+                      </td>
 	                    <td>{{article.category_str}}</td>
 	                    <td>{{article.author.get_full_name}}</td>
 	                    <td>{{article.description|striptags|truncatewords:"30"}}</td>
