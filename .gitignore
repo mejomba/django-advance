@@ -1,5 +1,11 @@
 .idea
 venv/
 db.sqlite3
+
 __pycache__/
 myproject/blog/__pycache__/views.cpython-38.pyc
+
+myproject/blog/__pycache__/
+../../__pycache__
+__pycache__
+
