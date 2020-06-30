@@ -13,6 +13,7 @@ def title(data='وبلاگ جنگویی'):
 @register.inclusion_tag('blog/partials/my_inclusion_tag.html')
 def category_navbar():
 	data = {
-		'categores': get_list_or_404(Category, status=False)
+		'categores': get_list_or_404(Category, status=False),
+		
 		}
 	return data
