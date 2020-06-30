@@ -51,10 +51,20 @@
 	                    <td>
 	                    	<span class="badge badge-success">منتشر شده</span>
 	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش در سایت</span>
+                        {% if user.is_superuser %}
+                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                        {% endif %}
 	                    </td>
 	                    {% else %}
-	                    <td><span class="badge badge-warning">پیش نویس</span></td>
+	                    <td>
+                        <span class="badge badge-warning">پیش نویس</span>
+                        {% if user.is_superuser %}
+                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                        {% endif %}
+                      </td>
 	                    {% endif %}
+                  
+
                   </tr>
                   {% endfor %}
                 </tbody></table>
