@@ -28,6 +28,10 @@
 			{% endif %}
 			<button class="btn btn-success">ارسال مقاله</button>
 
+			{% if request.user.is_superuser and request.resolver_match.kwargs.pk %}
+				<a href="{% url 'accounts:delete-article' request.resolver_match.kwargs.pk %}" class="btn btn-danger mr-2">حذف مقاله</a>
+			{% endif %}
+			<a href="{% url 'accounts:account' %}" class="btn btn-secondary mr-2">انصراف</a>
 		</div>
 		
 		</form>
