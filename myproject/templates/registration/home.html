@@ -50,7 +50,7 @@
 	                    {% if article.status == 'P' %}
 	                    <td>
 	                    	<span class="badge badge-success">منتشر شده</span>
-	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش در سایت</span>
+	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش</span>
                         {% if user.is_superuser %}
                           <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
                         {% endif %}
@@ -58,6 +58,9 @@
 	                    {% else %}
 	                    <td>
                         <span class="badge badge-warning">پیش نویس</span>
+                        {% if user.is_superuser or article.author == request.user %}
+                          <a href="{% url 'blog:preview-article' article.pk %}" target="_blank" class="badge badge-secondary">پیش نمایش</a>
+                        {% endif %}
                         {% if user.is_superuser %}
                           <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
                         {% endif %}

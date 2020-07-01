@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # plugin
     'widget_tweaks',
     'crispy_forms',
+    
 ]
 
 MIDDLEWARE = [
