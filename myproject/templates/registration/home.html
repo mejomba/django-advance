@@ -36,8 +36,12 @@
                   {% for article in object_list %}
                   	<tr>
 	                    <td>
-                        {% if user.is_superuser or article.status == 'D' %}
+                        {% if user.is_superuser or article.status in 'DB'|make_list %}
                           <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a> 
+                        {% elif user.is_superuser and article.status == 'I' %}
+                          <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a>
+                        {% elif article.author == request.user and article.status == 'I' %}
+                          {{article.title}}<br> <small>مقاله درحال بررسی قابل ویرایش نیست</small>
                         {% else %}
                           {{article.title}}<br> <small>مقاله منتشر شده قابل ویرایش نیست</small>
                         {% endif %}
@@ -47,14 +51,36 @@
 	                    <td>{{article.description|striptags|truncatewords:"30"}}</td>
 	                    <td>{{article.jpublish}}</td>
 	                    <td><img src="{{article.thumbnail.url}}" style="width: 120px"></td>
+
 	                    {% if article.status == 'P' %}
+
 	                    <td>
 	                    	<span class="badge badge-success">منتشر شده</span>
-	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش</span>
+	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش</a>
                         {% if user.is_superuser %}
                           <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
                         {% endif %}
 	                    </td>
+
+                      {% elif article.status == 'I' %}
+                      <td>
+                        <span class="badge badge-primary">درحال بررسی</span>
+                          <a href="{% url 'blog:preview-article' article.pk %}" target="_blank" class="badge badge-secondary">پیش نمایش</a>
+                        {% if user.is_superuser %}
+                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                        {% endif %}
+                      </td>
+
+                      <td>
+                      {% elif article.status == 'B' %}
+                      <td>
+                        <span class="badge badge-danger">برگشت خورده</span>
+                        <a target="_blank" href="{% url 'blog:preview-article' article.pk %}" class="badge badge-secondary">پیش نمایش</a>
+                        {% if user.is_superuser %}
+                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                        {% endif %}
+                      </td>
+
 	                    {% else %}
 	                    <td>
                         <span class="badge badge-warning">پیش نویس</span>
