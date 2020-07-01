@@ -26,6 +26,9 @@
 			<div class="col-md-3">{{form.status | as_crispy_field}}</div>
 			<div class="col-md-3">{{form.author | as_crispy_field}}</div>
 			{% endif %}
+			{% if user.is_superuser or article.status == 'B' %}
+				<div class="col-md-12">{{form.optional_description | as_crispy_field}}</div>
+			{% endif %}
 			<button class="btn btn-success">ارسال مقاله</button>
 
 			{% if request.user.is_superuser and request.resolver_match.kwargs.pk %}
