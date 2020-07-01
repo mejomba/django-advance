@@ -1,0 +1,6 @@
+<li class="nav-item">
+	<a href="{% url link %}" class="nav-link {% if request.resolver_match.url_name == css_class %}active{% endif %}">
+		<i class="{{icon}}"></i>
+		<p>{{content}}<span class="{{span_class}}">{{span_title}}</span></p>
+	</a>
+</li>

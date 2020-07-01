@@ -1,4 +1,5 @@
   {% load static %}
+  {% load custom_template_tag %}
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -35,29 +36,18 @@
                 </p>
               </a>
               <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="{% url 'accounts:account' %}" class="nav-link active">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>لیست مقالات</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="{% url 'accounts:create-article' %}" class="nav-link">
-                    <i class="fa fa-circle-o nav-icon"></i>
-                    <p>افزودن مقاله</p>
-                  </a>
-                </li>
+          
+                  <!-- custom_template_tag -->
+                  <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
+                  {% sidebar_item request 'account' 'fa fa-list nav-icon' 'لیست مقالات' '' '' %}
+
+                  <!-- custom_template_tag -->
+                  <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
+                  {% sidebar_item request 'create-article' 'fa fa-edit nav-icon' 'افزودن مقاله' '' '' %}
               </ul>
             </li>
-            <li class="nav-item">
-              <a href="pages/widgets.html" class="nav-link">
-                <i class="nav-icon fa fa-th"></i>
-                <p>
-                  پروفایل
-                  <span class="right badge badge-danger">جدید</span>
-                </p>
-              </a>
-            </li>
+              <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
+              {% sidebar_item request 'account' 'fa fa-th nav-icon' 'پروفایل' 'جدید' 'right badge badge-danger' %}
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
