@@ -31,6 +31,7 @@
                     <th>خلاصه</th>
                     <th>تاریخ انتشار</th>
                     <th>تصویر</th>
+                    <th>مقاله ویژه</th>
                     <th>وضعیت</th>
                   </tr>
                   {% for article in object_list %}
@@ -51,6 +52,13 @@
 	                    <td>{{article.description|striptags|truncatewords:"30"}}</td>
 	                    <td>{{article.jpublish}}</td>
 	                    <td><img src="{{article.thumbnail.url}}" style="width: 120px"></td>
+                      <td>
+                        {% if article.is_special %}
+                          <i class="fa fa-check-circle text-success"></i>
+                        {% else %}
+                          <i class="fa fa-times-circle text-danger"></i>
+                        {% endif %}
+                      </td>
 
 	                    {% if article.status == 'P' %}
 

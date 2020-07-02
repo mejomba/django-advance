@@ -28,14 +28,18 @@
 
 
 {% block main %}
-  <!-- Post Content -->
-  <article>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-        	{{article.description|safe}}        
+  {% if user.is_authenticated and user.is_special_user or article.author == user or user.is_superuser  %}
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+          	{{article.description|safe}}        
+          </div>
         </div>
       </div>
-    </div>
-  </article>
+    </article>
+  {% else %}
+    <p>این مقاله ویژه است برای مشاهده آن <a href="#">اشتراک ویژه</a> تهیه نمایید</p>
+  {% endif %}
 {% endblock main %}

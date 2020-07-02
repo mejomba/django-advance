@@ -7,9 +7,9 @@ class FormRenderMixin():
 
 	def dispatch(self, request, *args, **kwargs):
 		if request.user.is_superuser:
-			self.fields = ['author', 'title', 'slug', 'description', 'thumbnail', 'publish', 'status', 'category', 'optional_description']
+			self.fields = ['author', 'title', 'slug', 'description', 'thumbnail', 'publish', 'status', 'is_special', 'category', 'optional_description']
 		elif request.user.is_author:
-			self.fields = ['title', 'slug', 'description', 'thumbnail', 'publish', 'category', 'optional_description']
+			self.fields = ['title', 'slug', 'description', 'thumbnail', 'publish', 'category', 'is_special', 'optional_description']
 		else:
 			raise Http404
 

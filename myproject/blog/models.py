@@ -57,6 +57,8 @@ class Article(models.Model):
 	status 		= models.CharField(choices=STATUS_CHOICES, max_length=1, verbose_name='وضعیت')
 	category 	= models.ManyToManyField('Category', verbose_name='دسته بندی', related_name='related_name', null=True, blank=True)
 	optional_description = models.TextField(verbose_name='توضیحات اختیاری', null=True, blank=True)
+	is_special	= models.BooleanField(default=False, verbose_name='مقاله ویژه')
+
 	class Meta:
 		verbose_name = 'مقاله'
 		verbose_name_plural = 'مقاله'
