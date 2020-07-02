@@ -15,6 +15,7 @@ from .mixins import (
 	SuperUserAccessMixin,
 )
 from .models import User
+from .forms import ProfileForm
 
 
 class AccountView(LoginRequiredMixin, ListView):
@@ -48,7 +49,7 @@ class DeleteArticle(SuperUserAccessMixin, DeleteView):
 class Profile(UpdateView):
 	model = User
 	template_name = 'registration/profile.html'
-	fields = ['username', 'email', 'first_name', 'last_name', 'special_user', 'is_author']
+	form_class = ProfileForm
 	success_url = reverse_lazy('accounts:profile')
 
 	def get_object(self):
