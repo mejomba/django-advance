@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.contrib.auth.views import LoginView
 from django.views.generic import (
 	ListView,
 	CreateView,
@@ -46,7 +48,7 @@ class DeleteArticle(SuperUserAccessMixin, DeleteView):
 	template_name = 'registration/confirm-delete-article.html'
 
 
-class Profile(UpdateView):
+class Profile(LoginRequiredMixin ,UpdateView):
 	model = User
 	template_name = 'registration/profile.html'
 	form_class = ProfileForm
@@ -61,3 +63,11 @@ class Profile(UpdateView):
 			'user': self.request.user
 			})
 		return kwargs
+
+
+class Login(LoginView):
+	def get_success_url(self):
+		if self.request.user.is_superuser or self.request.user.is_author:
+			return reverse_lazy('accounts:account')
+		else:
+			return reverse_lazy('accounts:profile')

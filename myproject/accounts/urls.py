@@ -6,12 +6,13 @@ from accounts.views import (
     UpdateArticle,
     DeleteArticle,
     Profile,
+    Login,
 )
 
 
 app_name = 'accounts'
 urlpatterns = [
-    path('login/', views.LoginView.as_view(), name='login'),
+    path('login/', Login.as_view(), name='login'),
     path('', AccountView.as_view(), name='account'),
     path('article/create/', CreateArticle.as_view(), name='create-article'),
     path('article/update/<int:pk>', UpdateArticle.as_view(), name='update-article'),
