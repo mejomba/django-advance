@@ -5,6 +5,7 @@ from accounts.views import (
     CreateArticle,
     UpdateArticle,
     DeleteArticle,
+    Profile,
 )
 
 
@@ -15,6 +16,7 @@ urlpatterns = [
     path('article/create/', CreateArticle.as_view(), name='create-article'),
     path('article/update/<int:pk>', UpdateArticle.as_view(), name='update-article'),
     path('article/delete/<int:pk>', DeleteArticle.as_view(), name='delete-article'),
+    path('profile/', Profile.as_view(), name='profile'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
     # path('password_change/', views.PasswordChangeView.as_view(), name='password_change'),

@@ -23,88 +23,92 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body table-responsive p-0">
-                <table class="table table-hover">
-                  <tbody><tr>
-                    <th>عنوان</th>
-                    <th>دسته بندی</th>
-                    <th>نویسنده</th>
-                    <th>خلاصه</th>
-                    <th>تاریخ انتشار</th>
-                    <th>تصویر</th>
-                    <th>مقاله ویژه</th>
-                    <th>وضعیت</th>
-                  </tr>
-                  {% for article in object_list %}
-                  	<tr>
-	                    <td>
-                        {% if user.is_superuser or article.status in 'DB'|make_list %}
-                          <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a> 
-                        {% elif user.is_superuser and article.status == 'I' %}
-                          <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a>
-                        {% elif article.author == request.user and article.status == 'I' %}
-                          {{article.title}}<br> <small>مقاله درحال بررسی قابل ویرایش نیست</small>
-                        {% else %}
-                          {{article.title}}<br> <small>مقاله منتشر شده قابل ویرایش نیست</small>
-                        {% endif %}
-                      </td>
-	                    <td>{{article.category_str}}</td>
-	                    <td>{{article.author.get_full_name}}</td>
-	                    <td>{{article.description|striptags|truncatewords:"30"}}</td>
-	                    <td>{{article.jpublish}}</td>
-	                    <td><img src="{{article.thumbnail.url}}" style="width: 120px"></td>
-                      <td>
-                        {% if article.is_special %}
-                          <i class="fa fa-check-circle text-success"></i>
-                        {% else %}
-                          <i class="fa fa-times-circle text-danger"></i>
-                        {% endif %}
-                      </td>
+                {% if object_list %}
+                  <table class="table table-hover">
+                    <tbody><tr>
+                      <th>عنوان</th>
+                      <th>دسته بندی</th>
+                      <th>نویسنده</th>
+                      <th>خلاصه</th>
+                      <th>تاریخ انتشار</th>
+                      <th>تصویر</th>
+                      <th>مقاله ویژه</th>
+                      <th>وضعیت</th>
+                    </tr>
+                    {% for article in object_list %}
+                    	<tr>
+  	                    <td>
+                          {% if user.is_superuser or article.status in 'DB'|make_list %}
+                            <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a> 
+                          {% elif user.is_superuser and article.status == 'I' %}
+                            <a href="{% url 'accounts:update-article' article.pk %}" target="_blank">{{article.title}}</a>
+                          {% elif article.author == request.user and article.status == 'I' %}
+                            {{article.title}}<br> <small>مقاله درحال بررسی قابل ویرایش نیست</small>
+                          {% else %}
+                            {{article.title}}<br> <small>مقاله منتشر شده قابل ویرایش نیست</small>
+                          {% endif %}
+                        </td>
+  	                    <td>{{article.category_str}}</td>
+  	                    <td>{{article.author.get_full_name}}</td>
+  	                    <td>{{article.description|striptags|truncatewords:"30"}}</td>
+  	                    <td>{{article.jpublish}}</td>
+  	                    <td><img src="{{article.thumbnail.url}}" style="width: 120px"></td>
+                        <td>
+                          {% if article.is_special %}
+                            <i class="fa fa-check-circle text-success"></i>
+                          {% else %}
+                            <i class="fa fa-times-circle text-danger"></i>
+                          {% endif %}
+                        </td>
 
-	                    {% if article.status == 'P' %}
+  	                    {% if article.status == 'P' %}
 
-	                    <td>
-	                    	<span class="badge badge-success">منتشر شده</span>
-	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش</a>
-                        {% if user.is_superuser %}
-                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
-                        {% endif %}
-	                    </td>
+  	                    <td>
+  	                    	<span class="badge badge-success">منتشر شده</span>
+  	                    	<a target="_blank" href="{% url 'blog:detail' article.slug %}" class="badge badge-primary">نمایش</a>
+                          {% if user.is_superuser %}
+                            <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                          {% endif %}
+  	                    </td>
 
-                      {% elif article.status == 'I' %}
-                      <td>
-                        <span class="badge badge-primary">درحال بررسی</span>
-                          <a href="{% url 'blog:preview-article' article.pk %}" target="_blank" class="badge badge-secondary">پیش نمایش</a>
-                        {% if user.is_superuser %}
-                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
-                        {% endif %}
-                      </td>
+                        {% elif article.status == 'I' %}
+                        <td>
+                          <span class="badge badge-primary">درحال بررسی</span>
+                            <a href="{% url 'blog:preview-article' article.pk %}" target="_blank" class="badge badge-secondary">پیش نمایش</a>
+                          {% if user.is_superuser %}
+                            <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                          {% endif %}
+                        </td>
 
-                      <td>
-                      {% elif article.status == 'B' %}
-                      <td>
-                        <span class="badge badge-danger">برگشت خورده</span>
-                        <a target="_blank" href="{% url 'blog:preview-article' article.pk %}" class="badge badge-secondary">پیش نمایش</a>
-                        {% if user.is_superuser %}
-                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
-                        {% endif %}
-                      </td>
+                        <td>
+                        {% elif article.status == 'B' %}
+                        <td>
+                          <span class="badge badge-danger">برگشت خورده</span>
+                          <a target="_blank" href="{% url 'blog:preview-article' article.pk %}" class="badge badge-secondary">پیش نمایش</a>
+                          {% if user.is_superuser %}
+                            <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                          {% endif %}
+                        </td>
 
-	                    {% else %}
-	                    <td>
-                        <span class="badge badge-warning">پیش نویس</span>
-                        {% if user.is_superuser or article.author == request.user %}
-                          <a href="{% url 'blog:preview-article' article.pk %}" target="_blank" class="badge badge-secondary">پیش نمایش</a>
-                        {% endif %}
-                        {% if user.is_superuser %}
-                          <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
-                        {% endif %}
-                      </td>
-	                    {% endif %}
-                  
+  	                    {% else %}
+  	                    <td>
+                          <span class="badge badge-warning">پیش نویس</span>
+                          {% if user.is_superuser or article.author == request.user %}
+                            <a href="{% url 'blog:preview-article' article.pk %}" target="_blank" class="badge badge-secondary">پیش نمایش</a>
+                          {% endif %}
+                          {% if user.is_superuser %}
+                            <a href="{% url 'accounts:delete-article' article.pk %}" class="badge text-danger">حذف</a>
+                          {% endif %}
+                        </td>
+  	                    {% endif %}
+                    
 
-                  </tr>
-                  {% endfor %}
-                </tbody></table>
+                    </tr>
+                    {% endfor %}
+                  </tbody></table>
+                {% else %}
+                  <h3>مقاله ای وجود ندارد برای شروع یکی <a href="{% url 'accounts:create-article' %}">ایجاد کنید</a></h3>
+                {% endif %}
               </div>
               <!-- /.card-body -->
             </div>

@@ -18,7 +18,7 @@
             <img src="https://www.gravatar.com/avatar/52f0fbcbedee04a121cba8dad1174462?s=200&d=mm&r=g" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="{% url 'accounts:account' %}" class="d-block">{{user.get_full_name}}</a>
+            <a href="{% url 'accounts:account' %}" class="d-block">{% if user.get_full_name %}{{user.get_full_name}}{% else %}{{user.username}}{% endif %}</a>
           </div>
         </div>
 
@@ -47,7 +47,7 @@
               </ul>
             </li>
               <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
-              {% sidebar_item request 'account' 'fa fa-th nav-icon' 'پروفایل' 'جدید' 'right badge badge-danger' %}
+              {% sidebar_item request 'profile' 'fa fa-th nav-icon' 'پروفایل' 'جدید' 'right badge badge-danger' %}
           </ul>
         </nav>
         <!-- /.sidebar-menu -->

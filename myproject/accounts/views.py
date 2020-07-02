@@ -14,6 +14,7 @@ from .mixins import (
 	AuthorAccessMixin,
 	SuperUserAccessMixin,
 )
+from .models import User
 
 
 class AccountView(LoginRequiredMixin, ListView):
@@ -42,3 +43,13 @@ class DeleteArticle(SuperUserAccessMixin, DeleteView):
 	model = Article
 	success_url = reverse_lazy('accounts:account')
 	template_name = 'registration/confirm-delete-article.html'
+
+
+class Profile(UpdateView):
+	model = User
+	template_name = 'registration/profile.html'
+	fields = ['username', 'email', 'first_name', 'last_name', 'special_user', 'is_author']
+	success_url = reverse_lazy('accounts:profile')
+
+	def get_object(self):
+		return User.objects.get(pk=self.request.user.pk)
