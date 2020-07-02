@@ -25,26 +25,28 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <!-- Add icons to the links using the .nav-icon class
-                 with font-awesome or any other icon font library -->
-            <li class="nav-item has-treeview menu-open">
-              <a href="#" class="nav-link active">
-                <i class="nav-icon fa fa-dashboard"></i>
-                <p>
-                  مقالات
-                  <i class="right fa fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-          
-                  <!-- custom_template_tag -->
-                  <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
-                  {% sidebar_item request 'account' 'fa fa-list nav-icon' 'لیست مقالات' '' '' %}
+          {% if user.is_superuser or user.is_author %}
+              <!-- Add icons to the links using the .nav-icon class
+                   with font-awesome or any other icon font library -->
+              <li class="nav-item has-treeview menu-open">
+                <a href="#" class="nav-link active">
+                  <i class="nav-icon fa fa-dashboard"></i>
+                  <p>
+                    مقالات
+                    <i class="right fa fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+            
+                    <!-- custom_template_tag -->
+                    <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
+                    {% sidebar_item request 'account' 'fa fa-list nav-icon' 'لیست مقالات' '' '' %}
 
-                  <!-- custom_template_tag -->
-                  <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
-                  {% sidebar_item request 'create-article' 'fa fa-edit nav-icon' 'افزودن مقاله' '' '' %}
-              </ul>
+                    <!-- custom_template_tag -->
+                    <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
+                    {% sidebar_item request 'create-article' 'fa fa-edit nav-icon' 'افزودن مقاله' '' '' %}
+                </ul>
+              {% endif %}
             </li>
               <!-- def sidebar_item(request, link_name, icon, content, span_title, span_class) -->
               {% sidebar_item request 'profile' 'fa fa-th nav-icon' 'پروفایل' 'جدید' 'right badge badge-danger' %}
