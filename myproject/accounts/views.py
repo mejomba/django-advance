@@ -14,13 +14,14 @@ from .mixins import (
 	FormRenderMixin,
 	FormValidMixin,
 	AuthorAccessMixin,
+	AuthorsAccessMixin,
 	SuperUserAccessMixin,
 )
 from .models import User
 from .forms import ProfileForm
 
 
-class AccountView(LoginRequiredMixin, ListView):
+class AccountView(LoginRequiredMixin, AuthorsAccessMixin, ListView):
 	template_name = 'registration/home.html'
 
 	def get_queryset(self):

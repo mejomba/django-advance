@@ -1,6 +1,6 @@
 from django.http import Http404
 from blog.models import Article
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 
 
 class FormRenderMixin():
@@ -37,6 +37,15 @@ class AuthorAccessMixin():
 			return super().dispatch(request, *args, **kwargs)
 		else:
 			raise Http404
+
+
+class AuthorsAccessMixin():
+
+	def dispatch(self, request, *args, **kwargs):
+		if request.user.is_author or request.user.is_superuser:
+			return super().dispatch(request, *args, **kwargs)
+		else:
+			return redirect('accounts:profile')
 
 
 class SuperUserAccessMixin():
