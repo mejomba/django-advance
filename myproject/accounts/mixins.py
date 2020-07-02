@@ -6,12 +6,9 @@ from django.shortcuts import get_object_or_404, redirect
 class FormRenderMixin():
 
 	def dispatch(self, request, *args, **kwargs):
+		self.fields = ['title', 'slug', 'description', 'thumbnail', 'publish', 'status', 'is_special', 'category', 'optional_description']
 		if request.user.is_superuser:
-			self.fields = ['author', 'title', 'slug', 'description', 'thumbnail', 'publish', 'status', 'is_special', 'category', 'optional_description']
-		elif request.user.is_author:
-			self.fields = ['title', 'slug', 'description', 'thumbnail', 'publish', 'category', 'is_special', 'optional_description']
-		else:
-			raise Http404
+			self.fields.append('author')
 
 		return super().dispatch(request, *args, **kwargs)
 
@@ -24,7 +21,10 @@ class FormValidMixin():
 		else:
 			self.obj = form.save(commit=False)
 			self.obj.author = self.request.user
-			self.obj.status = 'D'
+			if self.obj.status == 'I':
+				self.obj.status = 'I'
+			else:
+				self.obj.status = 'D'
 
 		return super().form_valid(form)
 

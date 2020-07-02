@@ -23,19 +23,43 @@
 			<div class="col-md-3">{{form.publish | as_crispy_field}}</div>
 			<div class="col-md-3">{{form.thumbnail | as_crispy_field}}</div>
 			<div class="col-md-3">{{form.is_special | as_crispy_field}}</div>
+
+			{% if request.user == article.author %}
+			
+			<div class="col-md-3">
+				<div id="div_id_status" class="form-group">
+				  <label for="id_status" class="requiredField"> وضعیت<span class="asteriskField">*</span> </label>
+
+				  <div class="">
+				    <select name="status" class="select form-control" required="" id="id_status">
+				      <option value="" selected="">---------</option>
+				      <option value="D">پیش نویس</option>
+				      <option value="I">ارسال به ادمین</option>
+				    </select>
+				  </div>
+				</div>
+			</div>
+
+			{% endif %}
+
 			{% if user.is_superuser %}
 			<div class="col-md-3">{{form.status | as_crispy_field}}</div>
 			<div class="col-md-3">{{form.author | as_crispy_field}}</div>
 			{% endif %}
+
+			
+
 			{% if user.is_superuser or article.status == 'B' %}
 				<div class="col-md-12">{{form.optional_description | as_crispy_field}}</div>
 			{% endif %}
+			<div class="col-md-6">
 			<button class="btn btn-success">ارسال مقاله</button>
-
+			<a href="{% url 'accounts:account' %}" class="btn btn-secondary mr-2">انصراف</a>
 			{% if request.user.is_superuser and request.resolver_match.kwargs.pk %}
 				<a href="{% url 'accounts:delete-article' request.resolver_match.kwargs.pk %}" class="btn btn-danger mr-2">حذف مقاله</a>
 			{% endif %}
-			<a href="{% url 'accounts:account' %}" class="btn btn-secondary mr-2">انصراف</a>
+			</div>		
+			
 		</div>
 		
 		</form>
