@@ -17,7 +17,10 @@
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="site-heading">
             <h1>{{ article.title }}</h1>
-            <span>{{ article.jupdated }}</span>
+            <time>{{ article.jupdated }}</time>
+            {% if article.is_special %}
+                    <span class="badge badge-warning">ویژه</span>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -28,18 +31,21 @@
 
 
 {% block main %}
+<div class="container">
   {% if user.is_authenticated and user.is_special_user or article.author == user or user.is_superuser  %}
     <!-- Post Content -->
-    <article>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 col-md-10 mx-auto">
-          	{{article.description|safe}}        
+      <article>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+            	{{article.description|safe}}
+            </div>
           </div>
         </div>
-      </div>
-    </article>
-  {% else %}
-    <p>این مقاله ویژه است برای مشاهده آن <a href="#">اشتراک ویژه</a> تهیه نمایید</p>
+      </article>
+    {% else %}
+    {{ article.description|striptags|truncatechars:200 }}
+      <p class="alert alert-warning text-center">این مقاله ویژه است برای مشاهده آن <a href="#">اشتراک ویژه</a> تهیه نمایید</p>
   {% endif %}
+</div>
 {% endblock main %}

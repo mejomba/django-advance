@@ -41,6 +41,9 @@
               <a href="post.html">
                 <h3 class="post-title">
                   <a href="{% url 'blog:detail' article.slug %}">{{article.title}}</a>
+                  {% if article.is_special %}
+                    <span class="badge badge-warning">ویژه</span>
+                  {% endif %}
                 </h3>
                 <h5 class="post-subtitle">
                   <a href="{% url 'blog:detail' article.slug %}">{{article.description|striptags|truncatechars:130  }}</a>
